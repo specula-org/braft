@@ -825,6 +825,7 @@ void Replicator::_install_snapshot() {
     // report error on failure
     if (_reader->load_meta(&meta) != 0) {
         std::string snapshot_path = _reader->get_path();
+        _close_reader();
         NodeImpl *node_impl = _options.node;
         node_impl->AddRef();
         CHECK_EQ(0, bthread_id_unlock(_id)) << "Fail to unlock " << _id;
